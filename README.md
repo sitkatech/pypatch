@@ -43,7 +43,8 @@ If you used
 instead, your diff patch would read
 ```
 --- auth/models.py	2013-05-06 15:12:14.212220100 -0700
-+++ auth/models.py	2013-05-06 14:36:20.535220100 -0700```
++++ auth/models.py	2013-05-06 14:36:20.535220100 -0700
+```
 
 Build
 -----
