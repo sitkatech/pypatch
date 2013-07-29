@@ -26,6 +26,6 @@ setup(name='pypatch',
           "Topic :: Utilities",
           "Intended Audience :: Developers",
           "Natural Language :: English",
-          "Programming Language :: Python :: 2.7"
+          "Programming Language :: Python :: 2.7",
       ]
 )
