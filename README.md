@@ -31,16 +31,19 @@ For example, if the django package was installed to "C:\Python27\Lib\site-packag
 
 and the files named in my_auth_fix.patch would use relative pathing from the package directory:
 
-```--- models.py    2013-05-06 15:12:14.212220100 -0700
-   +++ models.py	2013-05-06 14:36:20.535220100 -0700```
+```
+--- models.py    2013-05-06 15:12:14.212220100 -0700
++++ models.py	2013-05-06 14:36:20.535220100 -0700
+```
 
 If you used
 
 ```pypatch apply django.contrib c:\project\patches\my_auth_fix.patch```
 
 instead, your diff patch would read
-```--- auth/models.py	2013-05-06 15:12:14.212220100 -0700
-   +++ auth/models.py	2013-05-06 14:36:20.535220100 -0700```
+```
+--- auth/models.py	2013-05-06 15:12:14.212220100 -0700
++++ auth/models.py	2013-05-06 14:36:20.535220100 -0700```
 
 Build
 -----
