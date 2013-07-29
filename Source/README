@@ -1,0 +1,3 @@
+To build this package:
+
+sdist --dist-dir="C:\svn\sitkatech\trunk\Libraries\Python"
