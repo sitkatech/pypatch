@@ -47,7 +47,7 @@ Build
 To build the distributable python package, run 'sdist' from the Project Root Directory.
 Recommended: setting the output directory to our Libraries folder
 
-```sdist --dist-dir="C:\svn\sitkatech\trunk\Libraries\Python"```
+```sdist --dist-dir="C:\outputdir"```
 
 This will build the zipped python package that can be installed via pip or easy_install
 
