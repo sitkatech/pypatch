@@ -17,7 +17,7 @@ import argparse
 
 import os
 
-from . import patch as pypatch
+import pypatch.patch as pypatch
 
 
 def apply_patch(args, debug=None):
