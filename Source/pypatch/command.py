@@ -70,7 +70,8 @@ def apply_patch(args, debug=None):
 
     except Exception as err:
         print("An unexpected error has occurred!")
-        print(err.message)
+        if hasattr(err, 'message'):
+            print(err.message)
         sys.exit(1)
     if result:
         print("Module '%s' patched successfully!" % args.module)
