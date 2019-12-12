@@ -16,16 +16,14 @@
 __author__ = "anatoly techtonik <techtonik@gmail.com>"
 __version__ = "1.12.11"
 
-import copy
 import logging
 import re
-# cStringIO doesn't support unicode in 2.5
-from StringIO import StringIO
-import urllib2
-
-from os.path import exists, isfile, abspath
 import os
 import shutil
+
+from os.path import isfile, abspath
+from six import StringIO
+from six.moves.urllib.request import urlopen
 
 
 #------------------------------------------------
@@ -141,10 +139,10 @@ def fromstring(s):
 
 def fromurl(url):
     """ Parse patch from an URL, return False
-        if an error occured. Note that this also
+        if an error occurred. Note that this also
         can throw urlopen() exceptions.
     """
-    ps = PatchSet(urllib2.urlopen(url))
+    ps = PatchSet(urlopen(url))
     if ps.errors == 0:
         return ps
     return False
@@ -1048,7 +1046,7 @@ if __name__ == "__main__":
             patch = fromfile(patchfile)
 
     if options.diffstat:
-        print patch.diffstat()
+        print(patch.diffstat())
         sys.exit(0)
 
     #pprint(patch)
