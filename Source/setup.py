@@ -7,17 +7,18 @@ def read(fname):
 
 
 setup(name='pypatch',
-      version='0.5.1',
+      version='1.0.0',
       description='Utility to apply unified diff patches to installed python modules.',
-      license = 'MIT',
+      license='MIT',
       long_description=read('README'),
       author='Sitka Technology Group',
-      include_package_data = True,
+      include_package_data=True,
       author_email='info@sitkatech.com',
       url='http://sitkatech.com',
-      packages=['pypatch',],
+      packages=['pypatch', ],
+      install_requires=['six'],
       keywords="build tool patch unified diff",
-      entry_points = {
+      entry_points={
           'console_scripts': [
               'pypatch = pypatch.command:main',
           ]
@@ -29,5 +30,4 @@ setup(name='pypatch',
           "Intended Audience :: Developers",
           "Natural Language :: English",
           "Programming Language :: Python :: 2.7",
-      ]
-)
+      ])

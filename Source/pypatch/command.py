@@ -10,15 +10,18 @@
     Project home: http://github.com/sitkatech/pypatch
 """
 
+from __future__ import print_function
 
 import sys
 import argparse
 
 import os
-import pypatch.patch as pypatch
+import traceback
+
+from . import patch as pypatch
 
 
-def apply_patch(args, debug=None):
+def apply_patch(args, debug=True):
     """
     Applies the contents of a unified diff file to a python module.
     """
@@ -59,7 +62,7 @@ def apply_patch(args, debug=None):
 
     try:
         if not os.path.exists(args.patch_file):
-            print "Unable to locate patch file '%s'" % args.patch_file
+            print("Unable to locate patch file '%s'" % args.patch_file)
             return
 
         patch_set = pypatch.fromfile(args.patch_file)
@@ -67,13 +70,15 @@ def apply_patch(args, debug=None):
         result = patch_set.apply()
 
     except Exception as err:
-        print "An unexpected error has occurred!"
-        print err.message
+        print("An unexpected error has occurred: %s" % err)
+        traceback.print_exc()
+        if hasattr(err, 'message'):
+            print(err.message)
         sys.exit(1)
     if result:
-        print "Module '%s' patched successfully!" % args.module
+        print("Module '%s' patched successfully!" % args.module)
     else:
-        print "Unable to apply patch. Please verify the patch contents and python module."
+        print("Unable to apply patch. Please verify the patch contents and python module.")
         sys.exit(1)
 
 
@@ -116,6 +121,7 @@ def main():
     apply_patch_parser.set_defaults(func=apply_patch)
     args = parser.parse_args()
     args.func(args, debug=args.debug.upper())
+
 
 if __name__ == "__main__":
     main()
