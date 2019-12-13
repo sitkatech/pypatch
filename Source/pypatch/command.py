@@ -17,7 +17,7 @@ import argparse
 
 import os
 
-import pypatch.patch as pypatch
+from . import patch as pypatch
 
 
 def apply_patch(args, debug=None):
@@ -69,7 +69,7 @@ def apply_patch(args, debug=None):
         result = patch_set.apply()
 
     except Exception as err:
-        print("An unexpected error has occurred!")
+        print("An unexpected error has occurred: %s" % err)
         if hasattr(err, 'message'):
             print(err.message)
         sys.exit(1)
