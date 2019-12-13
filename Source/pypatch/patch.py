@@ -19,6 +19,7 @@ __version__ = "1.12.11"
 import logging
 import re
 import os
+import six
 import shutil
 
 from os.path import isfile, abspath
@@ -119,7 +120,10 @@ def fromfile(filename):
     """
     patchset = PatchSet()
     debug("reading %s" % filename)
-    fp = open(filename, "rb")
+    if six.PY2:
+        fp = open(filename, "rb")
+    else:
+        fp = open(filename, "r")
     res = patchset.parse(fp)
     fp.close()
     if res == True:
@@ -249,7 +253,7 @@ class PatchSet(object):
                     return False
 
                 try:
-                    self._lineno, self._line = super(wrapumerate, self).next()
+                    self._lineno, self._line = super(wrapumerate, self).__next__()
                 except StopIteration:
                     self._exhausted = True
                     self._line = False
@@ -752,15 +756,16 @@ class PatchSet(object):
         #for fileno, filename in enumerate(self.source):
         for i, p in enumerate(self.items):
             f2patch = p.source
+            debug("applying patch to '%s'" % f2patch)
             if strip:
                 debug("stripping %s leading component from '%s'" % (strip, f2patch))
                 f2patch = pathstrip(f2patch, strip)
-            if not exists(f2patch):
+            if not os.path.exists(f2patch):
                 f2patch = p.target
                 if strip:
                     debug("stripping %s leading component from '%s'" % (strip, f2patch))
                     f2patch = pathstrip(f2patch, strip)
-                if not exists(f2patch):
+                if not os.path.exists(f2patch):
                     warning("source/target file does not exist\n--- %s\n+++ %s" % (p.source, f2patch))
                     errors += 1
                     continue
@@ -842,7 +847,7 @@ class PatchSet(object):
                     errors += 1
             if canpatch:
                 backupname = filename + ".orig"
-                if exists(backupname):
+                if os.path.exists(backupname):
                     warning("can't backup original file to %s - aborting" % backupname)
                 else:
                     import shutil
@@ -979,8 +984,12 @@ class PatchSet(object):
 
 
     def write_hunks(self, srcname, tgtname, hunks):
-        src = open(srcname, "rb")
-        tgt = open(tgtname, "wb")
+        if six.PY2:
+            src = open(srcname, "rb")
+            tgt = open(tgtname, "wb")
+        else:
+            src = open(srcname, "r")
+            tgt = open(tgtname, "w")
 
         debug("processing target file %s" % tgtname)
 
@@ -995,7 +1004,6 @@ class PatchSet(object):
 
 if __name__ == "__main__":
     from optparse import OptionParser
-    from os.path import exists
     import sys
 
     opt = OptionParser(usage="1. %prog [options] unified.diff\n"
@@ -1041,7 +1049,7 @@ if __name__ == "__main__":
             and len(urltest) > 1): # one char before : is a windows drive letter
             patch = fromurl(patchfile)
         else:
-            if not exists(patchfile) or not isfile(patchfile):
+            if not os.path.exists(patchfile) or not isfile(patchfile):
                 sys.exit("patch file does not exist - %s" % patchfile)
             patch = fromfile(patchfile)
 

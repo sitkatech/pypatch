@@ -16,11 +16,12 @@ import sys
 import argparse
 
 import os
+import traceback
 
 from . import patch as pypatch
 
 
-def apply_patch(args, debug=None):
+def apply_patch(args, debug=True):
     """
     Applies the contents of a unified diff file to a python module.
     """
@@ -70,6 +71,7 @@ def apply_patch(args, debug=None):
 
     except Exception as err:
         print("An unexpected error has occurred: %s" % err)
+        traceback.print_exc()
         if hasattr(err, 'message'):
             print(err.message)
         sys.exit(1)
