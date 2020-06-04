@@ -778,7 +778,10 @@ class PatchSet(object):
             debug("processing %d/%d:\t %s" % (i + 1, total, filename))
 
             # validate before patching
-            f2fp = open(filename)
+            if six.PY2:
+                f2fp = open(filename, "rb")
+            else:
+                f2fp = open(filename, "r")
             hunkno = 0
             hunk = p.hunks[hunkno]
             hunkfind = []
@@ -884,7 +887,10 @@ class PatchSet(object):
 
     def _match_file_hunks(self, filepath, hunks):
         matched = True
-        fp = open(abspath(filepath))
+        if six.PY2:
+            fp = open(abspath(filepath), "rb")
+        else:
+            fp = open(abspath(filepath), "r")
 
         class NoMatch(Exception):
             pass

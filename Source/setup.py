@@ -7,7 +7,7 @@ def read(fname):
 
 
 setup(name='pypatch',
-      version='1.0.0',
+      version='1.0.1',
       description='Utility to apply unified diff patches to installed python modules.',
       license='MIT',
       long_description=read('README'),
@@ -30,4 +30,5 @@ setup(name='pypatch',
           "Intended Audience :: Developers",
           "Natural Language :: English",
           "Programming Language :: Python :: 2.7",
+          "Programming Language :: Python :: 3",
       ])
