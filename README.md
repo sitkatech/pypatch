@@ -13,13 +13,13 @@ of the library, you can just issue your patch during the build process.
 
 Usage
 ---
-```pypatch apply [libarary.package] custom_diff.patch```
+```pypatch apply custom_diff.patch [libarary.package]```
 
 As a part of the work flow:
 
 ```c:\project\pip install django
    c:\project\pip install pypatch
-   c:\project\pypatch apply django.contrib.auth c:\project\patches\my_auth_fix.patch```
+   c:\project\pypatch apply c:\project\patches\my_auth_fix.patch django.contrib.auth```
 
 How it works
 ------------
@@ -27,7 +27,7 @@ PyPatch applies patches to files relative to the root directory of the named pac
 
 For example, if the django package was installed to "C:\Python27\Lib\site-packages\django" and you needed to patch the auth contrib package (django.contrib.auth), your command might look like
 
-```pypatch apply django.contrib.auth c:\project\patches\my_auth_fix.patch"```
+```pypatch apply c:\project\patches\my_auth_fix.patch django.contrib.auth"```
 
 and the files named in my_auth_fix.patch would use relative pathing from the package directory:
 
@@ -38,7 +38,7 @@ and the files named in my_auth_fix.patch would use relative pathing from the pac
 
 If you used
 
-```pypatch apply django.contrib c:\project\patches\my_auth_fix.patch```
+```pypatch apply c:\project\patches\my_auth_fix.patch django.contrib```
 
 instead, your diff patch would read
 ```
