@@ -17,9 +17,11 @@ Usage
 
 As a part of the work flow:
 
-```c:\project\pip install django
+```
+   c:\project\pip install django
    c:\project\pip install pypatch
-   c:\project\pypatch apply c:\project\patches\my_auth_fix.patch django.contrib.auth```
+   c:\project\pypatch apply c:\project\patches\my_auth_fix.patch django.contrib.auth
+```
 
 How it works
 ------------
